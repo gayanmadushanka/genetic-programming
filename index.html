@@ -1,0 +1,105 @@
+<html>
+  <head>
+    <title>
+      Fish Distribution Optimization Solution through Genetic Algorithm
+    </title>
+    <style>
+      body {
+        font-family: Arial;
+      }
+      h1 {
+        text-align: center;
+        text-decoration: underline;
+      }
+      #map-layer {
+        height: 100%;
+        margin: 10;
+      }
+      .btn-submit {
+        background: #a2ccff;
+        border: #96bdec 1px solid;
+        margin: 10;
+        padding: 5px 20;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Fish Distribution Optimization Solution through Genetic Algorithm</h1>
+    <input type="button" id="go" value="Find Optimal Path" class="btn-submit" />
+    <div id="map-layer"></div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+      function initMap() {
+        const directionsService = new google.maps.DirectionsService();
+        const directionsDisplay = new google.maps.DirectionsRenderer();
+        directionsDisplay.setMap(
+          new google.maps.Map(document.getElementById("map-layer"), {
+            center: new google.maps.LatLng(8.340742, 80.414055),
+            zoom: 17,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+          })
+        );
+
+        $("#go").on("click", function () {
+          const waypoints = Array();
+          waypoints.push({
+            location: new google.maps.LatLng(8.340742, 80.414055),
+            stopover: true,
+          });
+          waypoints.push({
+            location: new google.maps.LatLng(8.342504, 80.411984),
+            stopover: true,
+          });
+          waypoints.push({
+            location: new google.maps.LatLng(8.331899, 80.403058),
+            stopover: true,
+          });
+
+          var locationCount = waypoints.length;
+          if (locationCount > 0) {
+            var start = new google.maps.LatLng(8.340742, 80.414055);
+            var end = new google.maps.LatLng(8.331899, 80.403058);
+            drawPath(
+              directionsService,
+              directionsDisplay,
+              start,
+              end,
+              waypoints
+            );
+          }
+        });
+      }
+      function drawPath(
+        directionsService,
+        directionsDisplay,
+        start,
+        end,
+        waypoints
+      ) {
+        directionsService.route(
+          {
+            origin: start,
+            destination: end,
+            unitSystem: google.maps.UnitSystem.METRIC,
+            waypoints: waypoints,
+            optimizeWaypoints: true,
+            travelMode: google.maps.DirectionsTravelMode.DRIVING,
+          },
+          function (response, status) {
+            if (status === "OK") {
+              directionsDisplay.setDirections(response);
+            } else {
+              window.alert("Problem in showing direction due to " + status);
+            }
+          }
+        );
+      }
+    </script>
+    <script
+      async
+      defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgE02kOGfB2-nzswNJkhy30ILhmYuimXY&callback=initMap"
+    ></script>
+  </body>
+</html>
