@@ -1,46 +1,56 @@
-const geneticAlgorithmConstructor = require("geneticalgorithm");
+function initMap() {
+  const directionsService = new google.maps.DirectionsService();
+  const directionsDisplay = new google.maps.DirectionsRenderer();
+  directionsDisplay.setMap(
+    new google.maps.Map(document.getElementById("map-layer"), {
+      center: new google.maps.LatLng(8.340742, 80.414055),
+      zoom: 17,
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+    })
+  );
 
-const fitnessFunction = require("./fitness");
-const crossoverFunction = require("./crossover");
-const mutationFunction = require("./mutation");
+  $("#go").on("click", function () {
+    const waypoints = getLocations().map((l) => {
+      return { location: new google.maps.LatLng(l.x, l.y), stopover: true };
+    });
+    var locationCount = waypoints.length;
+    if (locationCount > 0) {
+      // var start = new google.maps.LatLng(8.340742, 80.414055);
+      // var end = new google.maps.LatLng(8.331899, 80.403058);
 
-// outline a large square but not in order.
-const firstPhenotype = [];
-for (i = 2; i < 10; i++) {
-  firstPhenotype.push({ x: i, y: 1 });
-  firstPhenotype.push({ x: 1, y: i });
-  firstPhenotype.push({ x: i, y: 10 });
-  firstPhenotype.push({ x: 10, y: i });
+      var start = waypoints[0].location;
+      var end = waypoints[waypoints.length - 1].location;
+      drawPath(directionsService, directionsDisplay, start, end, waypoints);
+    }
+
+    // for (let i = 0; i < waypoints.length - 1; i++) {
+    //   drawPath(
+    //     directionsService,
+    //     directionsDisplay,
+    //     waypoints[i].location,
+    //     waypoints[i + 1].location,
+    //     null
+    //   );
+    // }
+  });
 }
 
-const geneticAlgorithm = geneticAlgorithmConstructor({
-  population: [firstPhenotype],
-  populationSize: 1000,
-  mutationFunction: mutationFunction,
-  crossoverFunction: crossoverFunction,
-  fitnessFunction: fitnessFunction,
-});
-
-console.log("Starting with:");
-console.log(firstPhenotype);
-
-let previousBestScore = 0;
-
-for (let a = 0; a < 100; a++) {
-  for (let i = 0; i < 25; i++) {
-    geneticAlgorithm.evolve();
-  }
-
-  const score = geneticAlgorithm.bestScore();
-  if (score == previousBestScore) {
-    break;
-  }
-  previousBestScore = score;
-  console.log("Distance is " + -1 * score);
+function drawPath(directionsService, directionsDisplay, start, end, waypoints) {
+  directionsService.route(
+    {
+      origin: start,
+      destination: end,
+      unitSystem: google.maps.UnitSystem.METRIC,
+      waypoints: waypoints,
+      optimizeWaypoints: true,
+      travelMode: google.maps.DirectionsTravelMode.DRIVING,
+    },
+    function (response, status) {
+      if (status === "OK") {
+        directionsDisplay.setDirections(response);
+      } else {
+        window.alert("Problem in showing direction due to " + status);
+      }
+    }
+  );
 }
-
-const best = geneticAlgorithm.best();
-
-console.log("Finished with:");
-console.log(best);
-console.log("Distance is " + -1 * fitnessFunction(best));

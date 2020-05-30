@@ -1,4 +1,5 @@
-module.exports = function crossoverFunction(phenotypeA, phenotypeB) {
+// module.exports = function crossoverFunction(phenotypeA, phenotypeB) {
+function crossoverFunction(phenotypeA, phenotypeB) {
   var index = Math.round(Math.random() * phenotypeA.length);
 
   phenotypeX = helper_removeDuplicates(
@@ -10,7 +11,7 @@ module.exports = function crossoverFunction(phenotypeA, phenotypeB) {
 
   // move, copy, or append some values from a to b and from b to a
   return [phenotypeX, phenotypeY];
-};
+}
 
 function helper_concat(index, phenotypeA, phenotypeB) {
   return phenotypeA

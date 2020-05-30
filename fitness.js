@@ -1,4 +1,5 @@
-module.exports = function fitnessFunction(phenotype) {
+// module.exports = function fitnessFunction(phenotype) {
+function fitnessFunction(phenotype) {
   var calculateDistance = function (a, b) {
     return Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2));
   };
@@ -17,4 +18,4 @@ module.exports = function fitnessFunction(phenotype) {
   }, 0);
   //console.log("total = " + distance )
   return -1 * distance;
-};
+}
