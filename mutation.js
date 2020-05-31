@@ -5,6 +5,5 @@ function mutationFunction(phenotype) {
   var temp = phenotype[gene1_index];
   phenotype[gene1_index] = phenotype[gene2_index];
   phenotype[gene2_index] = temp;
-  //console.log("mutant = " + JSON.stringify(phenotype))
   return phenotype;
 }
