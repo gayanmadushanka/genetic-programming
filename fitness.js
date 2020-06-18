@@ -1,6 +1,9 @@
 function fitnessFunction(phenotype) {
-  const arr = [startLocation].concat(phenotype).concat(startLocation);
+  const arr = [startLocation].concat(phenotype).concat(endLocation); // s a b c e
+
   var prev = arr[0];
+
+  // [[s,a],[a,b],[b,c],[c,e]]
   var distances = arr.slice(1).map(function (item) {
     result = [prev, item];
     prev = item;

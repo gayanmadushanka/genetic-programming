@@ -4,7 +4,7 @@ function initMap() {
 
   var map = new google.maps.Map(document.getElementById("map-layer"), {
     center: new google.maps.LatLng(startLocation.x, startLocation.y),
-    zoom: 17,
+    zoom: 18,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
   });
   directionsDisplay.setMap(map);

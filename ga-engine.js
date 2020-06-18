@@ -2,9 +2,9 @@ function getBestRoute() {
   const geneticAlgorithm = geneticAlgorithmConstructor({
     population: [locations],
     populationSize: 1000,
-    mutationFunction: mutationFunction,
-    crossoverFunction: crossoverFunction,
     fitnessFunction: fitnessFunction,
+    crossoverFunction: crossoverFunction,
+    mutationFunction: mutationFunction,
   });
 
   let previousBestScore = 0;
@@ -35,11 +35,10 @@ let distanceMatrix;
 
 function calculateDistance(cb) {
   let allLocations = [startLocation].concat(locations);
-  if (startLocation.id != endLocation.id) {
-    allLocations = allLocations.concat(startLocation);
-  }
-
-  //Todo MAX_ELEMENTS_EXCEEDED
+  // Have to look ToDo
+  // if (startLocation.id != endLocation.id) {
+  //   allLocations = allLocations.concat(startLocation);
+  // }
 
   distanceMatrix = new Array(allLocations.length);
   for (i = 0; i < allLocations.length; i++) {
