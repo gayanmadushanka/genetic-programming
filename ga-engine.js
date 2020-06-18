@@ -1,9 +1,3 @@
-// const geneticAlgorithmConstructor = require("geneticalgorithm");
-
-// const fitnessFunction = require("./fitness");
-// const crossoverFunction = require("./crossover");
-// const mutationFunction = require("./mutation");
-
 function getBestRoute() {
   const geneticAlgorithm = geneticAlgorithmConstructor({
     population: [locations],
@@ -34,7 +28,6 @@ function getBestRoute() {
   console.log("Finished with:");
   console.log(bestRoutes);
   console.log("Distance is " + -1 * fitnessFunction(best));
-  // console.log(tempcount);
   return bestRoutes;
 }
 
@@ -72,16 +65,18 @@ function calculateDistance(cb) {
 }
 
 calculateDistance(function callback(response, status) {
-  // console.log(status);
-  for (const [i, row] of response.rows.entries()) {
-    for (const [j, element] of row.elements.entries()) {
-      const arr = element.distance.text.split(" ");
-      if (arr[1] == "km") {
-        distanceMatrix[i][j] = Number(arr[0]) * 1000;
-      } else {
-        distanceMatrix[i][j] = Number(arr[0]);
+  if (status === "OK") {
+    for (const [i, row] of response.rows.entries()) {
+      for (const [j, element] of row.elements.entries()) {
+        const arr = element.distance.text.split(" ");
+        if (arr[1] == "km") {
+          distanceMatrix[i][j] = Number(arr[0]) * 1000;
+        } else {
+          distanceMatrix[i][j] = Number(arr[0]);
+        }
       }
     }
+  } else {
+    window.alert("Problem in calculating distance due to " + status);
   }
-  // console.log(distanceMatrix);
 });

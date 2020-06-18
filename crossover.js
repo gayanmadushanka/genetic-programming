@@ -1,4 +1,3 @@
-// module.exports = function crossoverFunction(phenotypeA, phenotypeB) {
 function crossoverFunction(phenotypeA, phenotypeB) {
   var index = Math.round(Math.random() * phenotypeA.length);
 

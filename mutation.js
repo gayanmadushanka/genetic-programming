@@ -1,4 +1,3 @@
-// module.exports = function mutationFunction(phenotype) {
 function mutationFunction(phenotype) {
   var gene1_index = Math.floor(Math.random() * phenotype.length);
   var gene2_index = Math.floor(Math.random() * phenotype.length);

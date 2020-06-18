@@ -1,6 +1,3 @@
-// module.exports = function fitnessFunction(phenotype) {
-
-// let tempcount = 0;
 function fitnessFunction(phenotype) {
   const arr = [startLocation].concat(phenotype).concat(startLocation);
   var prev = arr[0];
@@ -12,11 +9,6 @@ function fitnessFunction(phenotype) {
   var distance = distances.reduce(function (total, item) {
     return total + calculateRouteDistance(item[0], item[1]);
   }, 0);
-
-  // if (tempcount < 100) {
-  // console.log(arr, distance);
-  // tempcount++;
-  // }
 
   return -1 * distance;
 }
