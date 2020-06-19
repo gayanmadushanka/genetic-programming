@@ -10,7 +10,21 @@ function initMap() {
   directionsDisplay.setMap(map);
 
   $("#findOptimalPath").on("click", function () {
-    const bestRoutes = getBestRoute().map((l) => {
+    $("#route").empty();
+    const [bestRoute, bestScore] = getBestRoute();
+
+    $("#route").append(
+      `<b>Minimum distance is ${bestScore / 1000} km</b><br><br>`
+    );
+
+    for (let a = 0; a < bestRoute.length; a++) {
+      if (a == bestRoute.length - 1) {
+        $("#route").append(`${bestRoute[a].address}<br>`);
+      } else {
+        $("#route").append(`${bestRoute[a].address}<br>&dArr;<br>`);
+      }
+    }
+    const bestRoutes = bestRoute.map((l) => {
       return { location: new google.maps.LatLng(l.x, l.y), stopover: true };
     });
     drawPath(directionsService, directionsDisplay, bestRoutes);

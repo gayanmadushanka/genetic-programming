@@ -9,14 +9,21 @@ function getBestRoute() {
 
   let previousBestScore = 0;
 
+  const terminationCount = 6;
+  let count = 0;
   for (let a = 0; a < 100; a++) {
     for (let i = 0; i < 25; i++) {
       geneticAlgorithm.evolve();
     }
 
     const score = geneticAlgorithm.bestScore();
+
     if (score == previousBestScore) {
-      break;
+      count++;
+      // Termination Condition
+      if (terminationCount == count) {
+        break;
+      }
     }
     previousBestScore = score;
     console.log("Distance is " + -1 * score);
@@ -25,10 +32,12 @@ function getBestRoute() {
   const best = geneticAlgorithm.best();
   const bestRoutes = [startLocation].concat(best).concat(endLocation);
 
+  const bestScore = -1 * fitnessFunction(best);
+
   console.log("Finished with:");
   console.log(bestRoutes);
-  console.log("Distance is " + -1 * fitnessFunction(best));
-  return bestRoutes;
+  console.log("Distance is " + bestScore);
+  return [bestRoutes, bestScore];
 }
 
 let distanceMatrix;

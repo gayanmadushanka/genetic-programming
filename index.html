@@ -11,16 +11,33 @@
         text-align: center;
         text-decoration: underline;
       }
-      #map-layer {
-        height: 100%;
-        margin: 10;
-      }
       .btn-submit {
         background: #a2ccff;
         border: #96bdec 1px solid;
         margin: 10;
         padding: 5px 20;
         cursor: pointer;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      .columnleft {
+        float: left;
+        width: 25%;
+        padding: 10px;
+        height: 100%;
+      }
+      .columnright {
+        float: left;
+        width: 75%;
+        padding: 10px;
+        height: 100%;
+      }
+      .row:after {
+        content: "";
+        display: table;
+        clear: both;
+        height: 100%;
       }
     </style>
   </head>
@@ -32,7 +49,10 @@
       value="Find Optimal Path"
       class="btn-submit"
     />
-    <div id="map-layer"></div>
+    <div class="row">
+      <div id="route" class="columnleft"></div>
+      <div id="map-layer" class="columnright"></div>
+    </div>
     <script src="data.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script
