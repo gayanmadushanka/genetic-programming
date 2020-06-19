@@ -9,7 +9,7 @@ function getBestRoute() {
 
   let previousBestScore = 0;
 
-  const terminationCount = 6;
+  const terminationCount = 10;
   let count = 0;
   for (let a = 0; a < 100; a++) {
     for (let i = 0; i < 25; i++) {
@@ -24,7 +24,10 @@ function getBestRoute() {
       if (terminationCount == count) {
         break;
       }
+    } else {
+      count = 0;
     }
+
     previousBestScore = score;
     console.log("Distance is " + -1 * score);
   }
