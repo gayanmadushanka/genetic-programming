@@ -35,10 +35,6 @@ let distanceMatrix;
 
 function calculateDistance(cb) {
   let allLocations = [startLocation].concat(locations);
-  // Have to look ToDo
-  // if (startLocation.id != endLocation.id) {
-  //   allLocations = allLocations.concat(startLocation);
-  // }
 
   distanceMatrix = new Array(allLocations.length);
   for (i = 0; i < allLocations.length; i++) {

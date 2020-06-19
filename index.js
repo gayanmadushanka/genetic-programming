@@ -9,13 +9,7 @@ function initMap() {
   });
   directionsDisplay.setMap(map);
 
-  // var marker = new google.maps.Marker({
-  //   position: new google.maps.LatLng(startLocation.x, startLocation.y),
-  //   label: "A",
-  // });
-  // marker.setMap(map);
-
-  $("#go").on("click", function () {
+  $("#findOptimalPath").on("click", function () {
     const bestRoutes = getBestRoute().map((l) => {
       return { location: new google.maps.LatLng(l.x, l.y), stopover: true };
     });
