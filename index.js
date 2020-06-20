@@ -43,7 +43,6 @@ function drawPath(directionsService, directionsDisplay, bestRoutes) {
     },
     function (response, status) {
       if (status === "OK") {
-        console.log(response);
         directionsDisplay.setDirections(response);
       } else {
         window.alert("Problem in showing direction due to " + status);
