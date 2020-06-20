@@ -14,7 +14,7 @@ function initMap() {
     const [bestRoute, bestScore] = getBestRoute();
 
     $("#route").append(
-      `<b>Minimum distance is ${bestScore / 1000} km</b><br><br>`
+      `<b>Minimum distance = ${bestScore / 1000} km</b><br><br>`
     );
 
     for (let a = 0; a < bestRoute.length; a++) {
